@@ -203,6 +203,12 @@ abstract class AbstractEncoder
                 );
         }
 
+        if (!is_string($this->result)) {
+            throw new NotSupportedException(
+                "Image encoding failed ({$this->format})."
+            );
+        }
+
         $this->setImage(null);
 
         return $image->setEncoded($this->result);
