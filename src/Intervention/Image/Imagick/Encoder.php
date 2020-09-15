@@ -93,6 +93,54 @@ class Encoder extends AbstractEncoder
         return $imagick->getImagesBlob();
     }
 
+    protected function processHeic()
+    {
+        if ( ! \Imagick::queryFormats('HEIC')) {
+            throw new NotSupportedException(
+                "HEIC format is not supported by Imagick installation."
+            );
+        }
+
+        $format = 'heic';
+        $compression = \Imagick::COMPRESSION_JPEG;
+
+        $imagick = $this->image->getCore();
+        $imagick->setImageBackgroundColor(new \ImagickPixel('transparent'));
+
+        $imagick = $imagick->mergeImageLayers(\Imagick::LAYERMETHOD_MERGE);
+        $imagick->setFormat($format);
+        $imagick->setImageFormat($format);
+        $imagick->setCompression($compression);
+        $imagick->setImageCompression($compression);
+        $imagick->setImageCompressionQuality($this->quality);
+
+        return $imagick->getImagesBlob();
+    }
+
+    protected function processAvif()
+    {
+        if ( ! \Imagick::queryFormats('AVIF')) {
+            throw new NotSupportedException(
+                "AVIF format is not supported by Imagick installation."
+            );
+        }
+
+        $format = 'avif';
+        $compression = \Imagick::COMPRESSION_JPEG;
+
+        $imagick = $this->image->getCore();
+        $imagick->setImageBackgroundColor(new \ImagickPixel('transparent'));
+
+        $imagick = $imagick->mergeImageLayers(\Imagick::LAYERMETHOD_MERGE);
+        $imagick->setFormat($format);
+        $imagick->setImageFormat($format);
+        $imagick->setCompression($compression);
+        $imagick->setImageCompression($compression);
+        $imagick->setImageCompressionQuality($this->quality);
+
+        return $imagick->getImagesBlob();
+    }
+
     /**
      * Processes and returns encoded image as TIFF string
      *

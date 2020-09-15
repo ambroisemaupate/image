@@ -74,6 +74,20 @@ class Encoder extends \Intervention\Image\AbstractEncoder
         return $buffer;
     }
 
+    protected function processHeic()
+    {
+        throw new NotSupportedException(
+            "HEIC format is not supported by Gd Driver."
+        );
+    }
+
+    protected function processAvif()
+    {
+        throw new NotSupportedException(
+            "AVIF format is not supported by Gd Driver."
+        );
+    }
+
     /**
      * Processes and returns encoded image as TIFF string
      *

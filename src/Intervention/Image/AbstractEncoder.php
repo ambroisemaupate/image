@@ -85,6 +85,20 @@ abstract class AbstractEncoder
     abstract protected function processWebp();
 
     /**
+     * Processes and returns image as HEIC encoded string
+     *
+     * @return string
+     */
+    abstract protected function processHeic();
+
+    /**
+     * Processes and returns image as AVIF encoded string
+     *
+     * @return string
+     */
+    abstract protected function processAvif();
+
+    /**
      * Process a given image
      *
      * @param  Image   $image
@@ -167,6 +181,20 @@ abstract class AbstractEncoder
             case 'image/webp':
             case 'image/x-webp':
                 $this->result = $this->processWebp();
+                break;
+
+            case 'heic':
+            case 'heif':
+            case 'image/heif':
+            case 'image/heic-sequence':
+            case 'image/heic':
+            case 'image/heif-sequence':
+                $this->result = $this->processHeic();
+                break;
+
+            case 'avif':
+            case 'image/avif':
+                $this->result = $this->processAvif();
                 break;
                 
             default:
