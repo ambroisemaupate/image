@@ -54,6 +54,16 @@ class File
 
         if (file_exists($path) && is_file($path)) {
             $this->mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
+            /*
+             * When mime-type is not well recognized for avif and heic
+             * We assume their mime-type from their extensions.
+             */
+            if ($this->mime === 'application/octet-stream' && $this->extension === 'avif') {
+                $this->mime = 'image/avif';
+            }
+            if ($this->mime === 'application/octet-stream' && $this->extension === 'heic') {
+                $this->mime = 'image/heic';
+            }
         }
 
         return $this;
